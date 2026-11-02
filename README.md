@@ -1,29 +1,38 @@
-# Freediver's Adventures Dangerous 2 — Nintendo 64 starter
+# Freediver's Adventures Dangerous 2 — Nintendo 64
 
-This is the first playable-code scaffold for an original N64 homebrew project.
-It uses Libdragon and targets a `.z64` ROM build.
+Original homebrew prototype targeting a `.z64` ROM with Libdragon.
 
-## Current milestone
+## Milestone 3: perspective scene and low-poly diver
 
-- 320x240 video output
-- controller polling
-- basic underwater-colored scene
-- diver placeholder that moves with the D-pad
-- HP and air meter graphics
-- simple seabed, coral silhouettes and bubbles
+This milestone replaces the earlier flat placeholder with a small CPU-projected 3D-style scene rendered as triangles through RDPQ:
 
-**Important:** this milestone is a 2D placeholder scene, not the finished 3D game. The next milestone is to add a 3D camera, low-poly diver/environment meshes, depth-tested geometry, collision and real gameplay systems.
+- Perspective projection from world coordinates to screen coordinates.
+- Low-poly diver assembled from shaded solid triangles.
+- Simple swimming kick animation.
+- Low-poly coral, rocks, and fish.
+- Follow-camera movement: D-pad moves the diver through the scene.
+- HP and blue air meters, plus a depth gauge.
+- Underwater particles and layered seabed.
 
-## Build environment
+The scene uses painter-style draw ordering and is an early 3D prototype. It does not yet include a full z-buffered mesh pipeline, textures, skeletal animation, sound, or a finished level.
 
-Install the stable Libdragon toolchain and initialize the project environment using the official Libdragon instructions. Set `N64_INST` to the Libdragon installation directory, then run:
+## Controls
+
+- D-pad: swim left/right/up/down.
+
+## Build
+
+Install the official Libdragon toolchain and set `N64_INST` to its installation directory. Then run:
 
 ```sh
 make
 ```
 
-The Libdragon build rules produce a `.z64` ROM in the build output directory. This source package does not include the SDK/toolchain, so a ROM has not been compiled here.
+The Makefile uses Libdragon's `n64.mk` rules. If the build succeeds, the `.z64` ROM is written under `build/`.
 
-## Controls in this prototype
+This package contains source code only. The SDK/toolchain is not bundled and no `.z64` ROM is claimed to have been compiled or tested here.
 
-- D-pad: move the diver placeholder
+## Project structure
+
+- `src/main.c` — game loop, perspective projection, low-poly scene, controls and HUD.
+- `Makefile` — Libdragon build entry point.
